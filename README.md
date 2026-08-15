@@ -41,6 +41,19 @@ print(normalized)  # {'items': [1, 2, 3], 'unique': ['a', 'b']}
 
 For full documentation, see [docs/data-normalization.md](docs/data-normalization.md).
 
+### Text Normalization
+
+Normalize whitespace, trim text, standardize Unicode, and convert case with composable primitives:
+
+```python
+from llm_data_utils.text import normalize_whitespace, trim_text
+
+cleaned = trim_text(normalize_whitespace("  hello   world  "))
+print(cleaned)  # "hello world"
+```
+
+For full documentation, see [docs/text-normalization.md](docs/text-normalization.md).
+
 ## Requirements
 
 - Python >= 3.11
