@@ -48,6 +48,19 @@ For complete development guidelines and environment configuration, see:
 - [docs/environment.md](docs/environment.md) (Environment setup & dependency guide)
 - [docs/development-workflow.md](docs/development-workflow.md) (Branching & PR workflow)
 
+## Architecture
+
+The library is organized into modular packages with strict separation of concerns:
+
+- `core`: Shared processing abstractions and internal orchestration.
+- `models`: Shared data models and type contracts.
+- `text`: String and text processing algorithms.
+- `compute`: Provider-independent computational routines.
+
+*LLM abstraction layers (`llm`) and provider bindings (`adapters`) are planned for future development phases.*
+
+For full architectural principles and dependency guidelines, see [docs/architecture.md](docs/architecture.md).
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
