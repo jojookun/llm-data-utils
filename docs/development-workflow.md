@@ -87,17 +87,20 @@ When introducing breaking changes, append `!` after the type/scope (e.g. `feat(a
 
 ## Pull Request Workflow
 
-To submit a change to the repository, follow these 12 steps:
+To submit a change to the repository, follow these steps:
 
 1. **Update local `main`**: Ensure your local `main` is synchronized with `origin/main` (`git switch main && git pull --ff-only origin main`).
 2. **Create a branch**: Create a focused branch (`git switch -c feat/my-feature`).
 3. **Implement one focused change**: Keep modifications scoped to the single task at hand.
 4. **Validate locally**: Run local test suites, linters, and verification checks in the virtual environment.
-5. **Review diff**: Inspect staged changes with `git diff` to ensure no unintended files or secrets are included.
-6. **Create a Conventional Commit**: Commit with a clear, standard message (`git commit -m "feat(module): description"`).
-7. **Push the branch**: Push your branch to GitHub (`git push -u origin feat/my-feature`).
-8. **Open a Pull Request**: Open a PR targeting `main` on GitHub using the repository Pull Request template.
-9. **Review**: Participate in code review, addressing feedback if needed.
-10. **Merge**: Once approved and checks pass, merge the PR into `main`.
-11. **Delete the merged branch**: Delete the remote and local feature branches to keep the repository tidy.
-12. **Synchronize local `main`**: Switch back to `main` and pull the latest changes (`git switch main && git pull --ff-only origin main`).
+5. **Inspect working tree**: Review current file status (`git status`).
+6. **Review unstaged changes**: Inspect modifications in your working directory (`git diff`).
+7. **Stage intended files**: Explicitly stage only intended files (`git add <intended-files>`).
+8. **Review staged changes**: Verify staged diff prior to committing (`git diff --cached`).
+9. **Create a Conventional Commit**: Commit with a standard message (`git commit -m "<type>[optional scope]: <description>"`).
+10. **Push the branch**: Push your branch to GitHub (`git push -u origin feat/my-feature`).
+11. **Open a Pull Request**: Open a PR targeting `main` on GitHub using the repository Pull Request template.
+12. **Review**: Participate in code review, addressing feedback if needed.
+13. **Merge**: Once approved and checks pass, merge the PR into `main`.
+14. **Delete the merged branch**: Delete the remote and local feature branches to keep the repository tidy.
+15. **Synchronize local `main`**: Switch back to `main` and pull the latest changes (`git switch main && git pull --ff-only origin main`).
