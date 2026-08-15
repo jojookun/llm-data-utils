@@ -57,7 +57,7 @@ def _normalize_value(
                         f"Invalid mapping key of type {type(key).__name__} at {path}: "
                         "mapping keys must be strings."
                     )
-                child_path = f"{path}['{key}']"
+                child_path = f"{path}[{key!r}]"
                 normalized_dict[key] = _normalize_value(
                     val, child_path, new_active_ids
                 )
@@ -94,10 +94,10 @@ def normalize_data(value: object) -> NormalizedData:
     """Recursively normalize a Python data structure into a JSON-friendly representation.
 
     Supported scalar types (None, bool, int, finite float, str) are preserved.
-    Supported container types (Mapping, list, tuple, set) are converted into new dict
+    Supported container types (Mapping, list, tuple, set, frozenset) are converted into new dict
     and list instances with all elements recursively normalized.
 
-    Sets are converted into deterministically sorted lists. Mappings require string keys.
+    Sets and frozensets are converted into deterministically sorted lists. Mappings require string keys.
 
     Args:
         value: The Python object to normalize.
