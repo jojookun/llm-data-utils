@@ -27,6 +27,20 @@ from llm_data_utils import __version__
 print(f"llm-data-utils version: {__version__}")
 ```
 
+### Data Normalization
+
+Normalize Python data structures into predictable JSON-friendly formats:
+
+```python
+from llm_data_utils.core import normalize_data
+
+data = {"items": (1, 2, 3), "unique": {"b", "a"}}
+normalized = normalize_data(data)
+print(normalized)  # {'items': [1, 2, 3], 'unique': ['a', 'b']}
+```
+
+For full documentation, see [docs/data-normalization.md](docs/data-normalization.md).
+
 ## Requirements
 
 - Python >= 3.11
