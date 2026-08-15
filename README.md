@@ -31,6 +31,15 @@ print(f"llm-data-utils version: {__version__}")
 
 - Python >= 3.11
 
+## Development
+
+Development follows a structured GitHub Flow workflow:
+- Work is completed on short-lived branches (`feat/*`, `fix/*`, `chore/*`, etc.).
+- Commits adhere to [Conventional Commits](https://www.conventionalcommits.org/).
+- Changes are integrated into `main` via reviewed Pull Requests.
+
+For complete guidelines, see [docs/development-workflow.md](docs/development-workflow.md).
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
