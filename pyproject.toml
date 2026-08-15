@@ -25,5 +25,12 @@ classifiers = [
 ]
 dependencies = []
 
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pytest",
+    "ruff",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]

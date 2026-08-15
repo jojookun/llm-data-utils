@@ -38,7 +38,15 @@ Development follows a structured GitHub Flow workflow:
 - Commits adhere to [Conventional Commits](https://www.conventionalcommits.org/).
 - Changes are integrated into `main` via reviewed Pull Requests.
 
-For complete guidelines, see [docs/development-workflow.md](docs/development-workflow.md).
+To install development dependencies (`pytest`, `ruff`, `mypy`):
+
+```bash
+python -m pip install -e ".[dev]"
+```
+
+For complete development guidelines and environment configuration, see:
+- [docs/environment.md](docs/environment.md) (Environment setup & dependency guide)
+- [docs/development-workflow.md](docs/development-workflow.md) (Branching & PR workflow)
 
 ## License
 
