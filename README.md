@@ -47,6 +47,7 @@ python -m pip install -e ".[dev]"
 For complete development guidelines and environment configuration, see:
 - [docs/environment.md](docs/environment.md) (Environment setup & dependency guide)
 - [docs/development-workflow.md](docs/development-workflow.md) (Branching & PR workflow)
+- [docs/engineering-standards.md](docs/engineering-standards.md) (Type hints, exceptions, mypy, Ruff & logging standards)
 
 ## Architecture
 
