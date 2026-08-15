@@ -8,6 +8,11 @@ from llm_data_utils.text.normalization import (
     normalize_whitespace,
     trim_text,
 )
+from llm_data_utils.text.transformation import (
+    remove_pattern,
+    replace_pattern,
+    replace_text,
+)
 
 __all__ = [
     "CaseMode",
@@ -15,5 +20,8 @@ __all__ = [
     "convert_case",
     "normalize_unicode",
     "normalize_whitespace",
+    "remove_pattern",
+    "replace_pattern",
+    "replace_text",
     "trim_text",
 ]
