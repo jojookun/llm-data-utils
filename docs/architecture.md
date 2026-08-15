@@ -67,6 +67,10 @@ text compute
  models
 ```
 
+> **Permitted vs. Mandatory Dependencies**: This diagram defines *permitted* dependency flow, not mandatory couplings. Higher-level packages are never required to import lower-level packages unless genuinely needed by the concrete implementation. For example, a pure string-manipulation routine in `text` does not need to import `models` simply because `models` is architecturally below `text`.
+>
+> **Core Principle**: *Depend downward only when needed; never depend upward.*
+
 ### Architectural Dependency Rules
 
 1. **Foundational Integrity**: `models` is the base layer and has zero internal dependencies.
