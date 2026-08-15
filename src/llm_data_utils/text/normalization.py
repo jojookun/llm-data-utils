@@ -86,6 +86,7 @@ def normalize_unicode(text: str, form: UnicodeForm = "NFC") -> str:
         ValidationError: If text is not a string or form is not a valid Unicode form.
     """
     _validate_str(text, "text")
+    _validate_str(form, "form")
     if form not in _VALID_UNICODE_FORMS:
         raise ValidationError(
             f"Invalid Unicode normalization form: {form!r}. "
@@ -108,13 +109,14 @@ def convert_case(text: str, mode: CaseMode) -> str:
         ValidationError: If text is not a string or mode is not a valid CaseMode.
     """
     _validate_str(text, "text")
+    _validate_str(mode, "mode")
+    if mode not in _VALID_CASE_MODES:
+        raise ValidationError(
+            f"Invalid case conversion mode: {mode!r}. "
+            "Expected one of: 'lower', 'upper', 'casefold'."
+        )
     if mode == "lower":
         return text.lower()
     if mode == "upper":
         return text.upper()
-    if mode == "casefold":
-        return text.casefold()
-    raise ValidationError(
-        f"Invalid case conversion mode: {mode!r}. "
-        "Expected one of: 'lower', 'upper', 'casefold'."
-    )
+    return text.casefold()
