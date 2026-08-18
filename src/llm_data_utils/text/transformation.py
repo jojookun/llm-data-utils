@@ -112,14 +112,22 @@ def replace_pattern(
         ) from exc
 
     if count == 0:
+        try:
+            compiled.sub(replacement, "")
+        except (re.error, IndexError, ValueError) as exc:
+            msg = exc.msg if hasattr(exc, "msg") else str(exc)
+            raise ValidationError(
+                f"Invalid regular expression replacement template: {msg}"
+            ) from exc
         return text
 
     re_count = 0 if count is None else count
     try:
         return compiled.sub(replacement, text, count=re_count)
-    except re.error as exc:
+    except (re.error, IndexError, ValueError) as exc:
+        msg = exc.msg if hasattr(exc, "msg") else str(exc)
         raise ValidationError(
-            f"Invalid regular expression replacement template: {exc.msg}"
+            f"Invalid regular expression replacement template: {msg}"
         ) from exc
 
 

@@ -77,7 +77,7 @@ print(cleaned)  # "Hello World"
 All transformation functions adhere to a uniform replacement count contract:
 
 * **`count=None`** (*default*): Replace all occurrences.
-* **`count=0`**: Perform zero replacements (returns the original text unchanged after verifying pattern validity).
+* **`count=0`**: Perform zero replacements (returns the original text unchanged after validating both the pattern and replacement template).
 * **`count=N`** (*integer > 0*): Replace at most `N` occurrences.
 
 > [!WARNING]
