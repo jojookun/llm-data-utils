@@ -1,5 +1,6 @@
 """String and text processing functionality."""
 
+from llm_data_utils.text.chunking import chunk_text
 from llm_data_utils.text.normalization import (
     CaseMode,
     UnicodeForm,
@@ -17,6 +18,7 @@ from llm_data_utils.text.transformation import (
 __all__ = [
     "CaseMode",
     "UnicodeForm",
+    "chunk_text",
     "convert_case",
     "normalize_unicode",
     "normalize_whitespace",

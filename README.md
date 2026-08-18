@@ -67,6 +67,20 @@ print(masked)  # "Order <id>"
 
 For full documentation, see [docs/text-transformation.md](docs/text-transformation.md).
 
+### Text Chunking
+
+Deterministically split text into fixed-width character chunks with source offsets:
+
+```python
+from llm_data_utils.text import chunk_text
+
+chunks = chunk_text("abcdefghij", chunk_size=4, overlap=1)
+for chunk in chunks:
+    print(f"[{chunk.start}:{chunk.end}] {chunk.text!r}")
+```
+
+For full documentation, see [docs/text-chunking.md](docs/text-chunking.md).
+
 ## Requirements
 
 - Python >= 3.11
