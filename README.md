@@ -81,6 +81,20 @@ for chunk in chunks:
 
 For full documentation, see [docs/text-chunking.md](docs/text-chunking.md).
 
+### Text Matching
+
+Search for substring occurrences and extract matched source offsets:
+
+```python
+from llm_data_utils.text import find_matches
+
+matches = find_matches("Python PYTHON python", "python", case_sensitive=False)
+for match in matches:
+    print(f"[{match.start}:{match.end}] {match.text!r}")
+```
+
+For full documentation, see [docs/text-matching.md](docs/text-matching.md).
+
 ## Requirements
 
 - Python >= 3.11
