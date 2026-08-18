@@ -64,8 +64,8 @@ def sum_values(
         total: NumericValue = 0
         for val in values:
             total = total + val
-    except (OverflowError, ArithmeticError) as exc:
-        raise ProcessingError(f"Arithmetic overflow during summation: {exc}") from exc
+    except OverflowError as exc:
+        raise ProcessingError("Arithmetic overflow during summation.") from exc
 
     if isinstance(total, float) and not math.isfinite(total):
         raise ProcessingError("Summation resulted in a non-finite value.")
@@ -98,8 +98,10 @@ def mean_values(
     total = sum_values(values)
     try:
         result = total / len(values)
-    except (OverflowError, ArithmeticError) as exc:
-        raise ProcessingError(f"Arithmetic overflow during mean calculation: {exc}") from exc
+    except OverflowError as exc:
+        raise ProcessingError(
+            "Arithmetic overflow during mean calculation."
+        ) from exc
 
     if not math.isfinite(result):
         raise ProcessingError("Mean calculation resulted in a non-finite value.")
@@ -132,8 +134,8 @@ def safe_divide(
 
     try:
         result = numerator / denominator
-    except (OverflowError, ArithmeticError) as exc:
-        raise ProcessingError(f"Arithmetic overflow during division: {exc}") from exc
+    except OverflowError as exc:
+        raise ProcessingError("Arithmetic overflow during division.") from exc
 
     if not math.isfinite(result):
         raise ProcessingError("Division resulted in a non-finite value.")
@@ -162,8 +164,10 @@ def percentage(
 
     try:
         result = div_result * 100.0
-    except (OverflowError, ArithmeticError) as exc:
-        raise ProcessingError(f"Arithmetic overflow during percentage calculation: {exc}") from exc
+    except OverflowError as exc:
+        raise ProcessingError(
+            "Arithmetic overflow during percentage calculation."
+        ) from exc
 
     if not math.isfinite(result):
         raise ProcessingError("Percentage calculation resulted in a non-finite value.")
