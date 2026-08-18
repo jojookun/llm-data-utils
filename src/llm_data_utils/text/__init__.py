@@ -1,6 +1,7 @@
 """String and text processing functionality."""
 
 from llm_data_utils.text.chunking import chunk_text
+from llm_data_utils.text.matching import find_matches
 from llm_data_utils.text.normalization import (
     CaseMode,
     UnicodeForm,
@@ -20,6 +21,7 @@ __all__ = [
     "UnicodeForm",
     "chunk_text",
     "convert_case",
+    "find_matches",
     "normalize_unicode",
     "normalize_whitespace",
     "remove_pattern",
