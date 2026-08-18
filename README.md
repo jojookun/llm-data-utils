@@ -109,6 +109,20 @@ for match in matches:
 
 For full documentation, see [docs/text-matching.md](docs/text-matching.md).
 
+### Computation Utilities
+
+Perform safe, deterministic numeric calculations and aggregations:
+
+```python
+from llm_data_utils.compute import mean_values, percentage
+
+average = mean_values([10, 20, 30])
+completion = percentage(3, 4)
+print(f"Average: {average}, Completion: {completion}%")  # 20.0, 75.0%
+```
+
+For full documentation, see [docs/computation.md](docs/computation.md).
+
 ## Requirements
 
 - Python >= 3.11
