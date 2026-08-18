@@ -41,6 +41,20 @@ print(normalized)  # {'items': [1, 2, 3], 'unique': ['a', 'b']}
 
 For full documentation, see [docs/data-normalization.md](docs/data-normalization.md).
 
+### Structured Data Transformation
+
+Traverse, update, and remove nested values with copy-on-write path operations:
+
+```python
+from llm_data_utils.core import set_path
+
+data = {"user": {"name": "Jona"}}
+updated = set_path(data, ("user", "name"), "Naufal")
+print(updated)  # {'user': {'name': 'Naufal'}}
+```
+
+For full documentation, see [docs/data-transformation.md](docs/data-transformation.md).
+
 ### Text Normalization
 
 Normalize whitespace, trim text, standardize Unicode, and convert case with composable primitives:
