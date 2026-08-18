@@ -88,7 +88,8 @@ def replace_pattern(
         pattern: The regular expression pattern to search for.
         replacement: The replacement string (supports backreferences like \\1, \\g<1>).
         count: Maximum number of occurrences to replace. If None, replaces all occurrences.
-            If 0, returns the text unchanged after verifying pattern validity. Defaults to None.
+            If 0, returns the text unchanged after validating the pattern and
+            replacement template. Defaults to None.
         flags: Regular expression compilation flags (e.g. re.IGNORECASE). Defaults to re.NOFLAG.
 
     Returns:
