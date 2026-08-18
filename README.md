@@ -54,6 +54,19 @@ print(cleaned)  # "hello world"
 
 For full documentation, see [docs/text-normalization.md](docs/text-normalization.md).
 
+### Text Transformation
+
+Perform literal and regular-expression string transformations with controlled boundaries:
+
+```python
+from llm_data_utils.text import replace_pattern
+
+masked = replace_pattern("Order 12345", r"\d+", "<id>")
+print(masked)  # "Order <id>"
+```
+
+For full documentation, see [docs/text-transformation.md](docs/text-transformation.md).
+
 ## Requirements
 
 - Python >= 3.11
