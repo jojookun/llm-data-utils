@@ -1,37 +1,17 @@
-"""Deterministic substring search and source-offset-preserving matching."""
+"""Deterministic substring matching and offset extraction."""
 
+from llm_data_utils._validation import _require_bool, _require_str
 from llm_data_utils.exceptions import ValidationError
 from llm_data_utils.models import TextMatch
 
 __all__ = ["find_matches"]
 
 
-def _validate_str(value: object, param_name: str) -> None:
-    """Validate that a parameter is a string."""
-    if not isinstance(value, str):
-        raise ValidationError(
-            f"Expected str for {param_name!r}, got {type(value).__name__}."
-        )
-
-
 def _validate_query(query: object) -> None:
     """Validate that query is a non-empty string."""
-    if not isinstance(query, str):
-        raise ValidationError(
-            f"Expected str for 'query', got {type(query).__name__}."
-        )
-    if len(query) == 0:
-        raise ValidationError(
-            "Expected non-empty str for 'query', got empty string."
-        )
-
-
-def _validate_bool(value: object, param_name: str) -> None:
-    """Validate that a parameter is a boolean."""
-    if not isinstance(value, bool):
-        raise ValidationError(
-            f"Expected bool for {param_name!r}, got {type(value).__name__}."
-        )
+    _require_str(query, name="query")
+    if isinstance(query, str) and len(query) == 0:
+        raise ValidationError("Expected non-empty str for 'query'.")
 
 
 def find_matches(
@@ -58,9 +38,9 @@ def find_matches(
         ValidationError: If text or query is not a string, query is empty,
             or case_sensitive is not a boolean.
     """
-    _validate_str(text, "text")
+    _require_str(text, name="text")
     _validate_query(query)
-    _validate_bool(case_sensitive, "case_sensitive")
+    _require_bool(case_sensitive, name="case_sensitive")
 
     text_len = len(text)
     if text_len == 0:

@@ -4,6 +4,7 @@ import re
 import unicodedata
 from typing import Literal
 
+from llm_data_utils._validation import _require_str
 from llm_data_utils.exceptions import ValidationError
 
 __all__ = [
@@ -28,14 +29,6 @@ _VALID_CASE_MODES = frozenset({"lower", "upper", "casefold"})
 _WHITESPACE_REGEX = re.compile(r"\s+")
 
 
-def _validate_str(value: object, param_name: str) -> None:
-    """Validate that the given parameter is a string."""
-    if not isinstance(value, str):
-        raise ValidationError(
-            f"Expected str for {param_name!r}, got {type(value).__name__}."
-        )
-
-
 def trim_text(text: str) -> str:
     """Remove leading and trailing whitespace from text while preserving internal content.
 
@@ -48,7 +41,7 @@ def trim_text(text: str) -> str:
     Raises:
         ValidationError: If text is not a string.
     """
-    _validate_str(text, "text")
+    _require_str(text, name="text")
     return text.strip()
 
 
@@ -67,7 +60,7 @@ def normalize_whitespace(text: str) -> str:
     Raises:
         ValidationError: If text is not a string.
     """
-    _validate_str(text, "text")
+    _require_str(text, name="text")
     return _WHITESPACE_REGEX.sub(" ", text)
 
 
@@ -85,8 +78,8 @@ def normalize_unicode(text: str, form: UnicodeForm = "NFC") -> str:
     Raises:
         ValidationError: If text is not a string or form is not a valid Unicode form.
     """
-    _validate_str(text, "text")
-    _validate_str(form, "form")
+    _require_str(text, name="text")
+    _require_str(form, name="form")
     if form not in _VALID_UNICODE_FORMS:
         raise ValidationError(
             f"Invalid Unicode normalization form: {form!r}. "
@@ -108,8 +101,8 @@ def convert_case(text: str, mode: CaseMode) -> str:
     Raises:
         ValidationError: If text is not a string or mode is not a valid CaseMode.
     """
-    _validate_str(text, "text")
-    _validate_str(mode, "mode")
+    _require_str(text, name="text")
+    _require_str(mode, name="mode")
     if mode not in _VALID_CASE_MODES:
         raise ValidationError(
             f"Invalid case conversion mode: {mode!r}. "

@@ -2,6 +2,7 @@
 
 import re
 
+from llm_data_utils._validation import _require_non_bool_int, _require_str
 from llm_data_utils.exceptions import ValidationError
 
 __all__ = [
@@ -11,23 +12,14 @@ __all__ = [
 ]
 
 
-def _validate_str(value: object, param_name: str) -> None:
-    """Validate that a parameter is a string."""
-    if not isinstance(value, str):
-        raise ValidationError(
-            f"Expected str for {param_name!r}, got {type(value).__name__}."
-        )
-
-
 def _validate_count(count: object) -> None:
     """Validate that the count argument is a non-negative int or None (excluding bool)."""
     if count is None:
         return
-    if isinstance(count, bool) or not isinstance(count, int) or count < 0:
+    val = _require_non_bool_int(count, name="count")
+    if val < 0:
         raise ValidationError(
-            f"Expected non-negative int or None for 'count', got {type(count).__name__}."
-            if not isinstance(count, int) or isinstance(count, bool)
-            else f"Expected non-negative int or None for 'count', got {count}."
+            f"Expected non-negative int or None for 'count', got {val}."
         )
 
 
@@ -61,9 +53,9 @@ def replace_text(
     Raises:
         ValidationError: If text, old, or new is not a string, or count is invalid.
     """
-    _validate_str(text, "text")
-    _validate_str(old, "old")
-    _validate_str(new, "new")
+    _require_str(text, name="text")
+    _require_str(old, name="old")
+    _require_str(new, name="new")
     _validate_count(count)
 
     if count == 0:
@@ -99,9 +91,9 @@ def replace_pattern(
         ValidationError: If text, pattern, or replacement is not a string, count or flags
             is invalid, or if the pattern syntax or replacement template is malformed.
     """
-    _validate_str(text, "text")
-    _validate_str(pattern, "pattern")
-    _validate_str(replacement, "replacement")
+    _require_str(text, name="text")
+    _require_str(pattern, name="pattern")
+    _require_str(replacement, name="replacement")
     _validate_count(count)
     _validate_flags(flags)
 
@@ -115,20 +107,26 @@ def replace_pattern(
     if count == 0:
         try:
             compiled.sub(replacement, "")
-        except (re.error, IndexError, ValueError) as exc:
-            msg = exc.msg if hasattr(exc, "msg") else str(exc)
+        except re.error as exc:
             raise ValidationError(
-                f"Invalid regular expression replacement template: {msg}"
+                f"Invalid regular expression replacement template: {exc.msg}"
+            ) from exc
+        except (IndexError, ValueError) as exc:
+            raise ValidationError(
+                "Invalid regular expression replacement template."
             ) from exc
         return text
 
     re_count = 0 if count is None else count
     try:
         return compiled.sub(replacement, text, count=re_count)
-    except (re.error, IndexError, ValueError) as exc:
-        msg = exc.msg if hasattr(exc, "msg") else str(exc)
+    except re.error as exc:
         raise ValidationError(
-            f"Invalid regular expression replacement template: {msg}"
+            f"Invalid regular expression replacement template: {exc.msg}"
+        ) from exc
+    except (IndexError, ValueError) as exc:
+        raise ValidationError(
+            "Invalid regular expression replacement template."
         ) from exc
 
 
