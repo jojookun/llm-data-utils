@@ -159,7 +159,7 @@ from llm_data_utils.core import (
 )
 from llm_data_utils.exceptions import ValidationError
 from llm_data_utils.models import NormalizedData
-from llm_data_utils.text import trim_text
+from llm_data_utils.text import convert_case, trim_text
 
 
 def trim_user_name(data: NormalizedData) -> NormalizedData:
@@ -169,9 +169,11 @@ def trim_user_name(data: NormalizedData) -> NormalizedData:
     return set_path(data, ("user", "name"), trim_text(name))
 
 
-def add_greeting(data: NormalizedData) -> NormalizedData:
+def uppercase_user_name(data: NormalizedData) -> NormalizedData:
     name = get_path(data, ("user", "name"))
-    return set_path(data, ("user", "greeting"), f"Hello, {name}!")
+    if not isinstance(name, str):
+        raise ValidationError("Expected string for user name.")
+    return set_path(data, ("user", "name"), convert_case(name, "upper"))
 
 
 source_data: NormalizedData = {
@@ -182,7 +184,7 @@ source_data: NormalizedData = {
 
 pipeline = (
     PipelineStep("trim-name", trim_user_name),
-    PipelineStep("add-greeting", add_greeting),
+    PipelineStep("uppercase-name", uppercase_user_name),
 )
 
 result = run_pipeline(source_data, pipeline)
@@ -190,8 +192,7 @@ result = run_pipeline(source_data, pipeline)
 # Result:
 # {
 #     "user": {
-#         "name": "Jona",
-#         "greeting": "Hello, Jona!",
+#         "name": "JONA",
 #     }
 # }
 ```
