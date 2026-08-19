@@ -55,6 +55,23 @@ print(updated)  # {'user': {'name': 'Naufal'}}
 
 For full documentation, see [docs/data-transformation.md](docs/data-transformation.md).
 
+### Processing Pipeline
+
+Execute synchronous, linear transformation pipelines over normalized data:
+
+```python
+from llm_data_utils.core import PipelineStep, run_pipeline
+
+pipeline = (
+    PipelineStep("first", first_transform),
+    PipelineStep("second", second_transform),
+)
+
+result = run_pipeline(data, pipeline)
+```
+
+For full documentation, see [docs/processing-pipeline.md](docs/processing-pipeline.md).
+
 ### Text Normalization
 
 Normalize whitespace, trim text, standardize Unicode, and convert case with composable primitives:
