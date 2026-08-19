@@ -4,6 +4,7 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from typing import TypeAlias
 
+from llm_data_utils._validation import _require_str
 from llm_data_utils.exceptions import (
     LLMDataUtilsError,
     ProcessingError,
@@ -37,7 +38,8 @@ class PipelineStep:
 
     def __post_init__(self) -> None:
         """Validate step attributes upon initialization."""
-        if not isinstance(self.name, str) or not self.name.strip():
+        _require_str(self.name, name="name")
+        if not self.name.strip():
             raise ValidationError(
                 f"Step name must be a non-empty str with non-whitespace characters, got {self.name!r}."
             )

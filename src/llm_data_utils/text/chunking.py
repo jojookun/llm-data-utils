@@ -1,40 +1,31 @@
 """Deterministic fixed-width text chunking and segmentation."""
 
+from llm_data_utils._validation import _require_non_bool_int, _require_str
 from llm_data_utils.exceptions import ValidationError
 from llm_data_utils.models import TextChunk
 
 __all__ = ["chunk_text"]
 
 
-def _validate_str(value: object, param_name: str) -> None:
-    """Validate that a parameter is a string."""
-    if not isinstance(value, str):
-        raise ValidationError(
-            f"Expected str for {param_name!r}, got {type(value).__name__}."
-        )
-
-
 def _validate_chunk_size(chunk_size: object) -> None:
     """Validate that chunk_size is a positive integer (excluding bool)."""
-    if isinstance(chunk_size, bool) or not isinstance(chunk_size, int) or chunk_size <= 0:
+    val = _require_non_bool_int(chunk_size, name="chunk_size")
+    if val <= 0:
         raise ValidationError(
-            f"Expected positive int for 'chunk_size', got {type(chunk_size).__name__}."
-            if not isinstance(chunk_size, int) or isinstance(chunk_size, bool)
-            else f"Expected positive int for 'chunk_size', got {chunk_size}."
+            f"Expected positive int for 'chunk_size', got {val}."
         )
 
 
 def _validate_overlap(overlap: object, chunk_size: int) -> None:
     """Validate that overlap is a non-negative integer strictly less than chunk_size."""
-    if isinstance(overlap, bool) or not isinstance(overlap, int) or overlap < 0:
+    val = _require_non_bool_int(overlap, name="overlap")
+    if val < 0:
         raise ValidationError(
-            f"Expected non-negative int for 'overlap', got {type(overlap).__name__}."
-            if not isinstance(overlap, int) or isinstance(overlap, bool)
-            else f"Expected non-negative int for 'overlap', got {overlap}."
+            f"Expected non-negative int for 'overlap', got {val}."
         )
-    if overlap >= chunk_size:
+    if val >= chunk_size:
         raise ValidationError(
-            f"Expected 'overlap' to be strictly less than 'chunk_size' ({chunk_size}), got {overlap}."
+            f"Expected 'overlap' to be strictly less than 'chunk_size' ({chunk_size}), got {val}."
         )
 
 
@@ -60,7 +51,7 @@ def chunk_text(
         ValidationError: If text is not a string, chunk_size is not a positive int,
             overlap is not a non-negative int, or overlap is >= chunk_size.
     """
-    _validate_str(text, "text")
+    _require_str(text, name="text")
     _validate_chunk_size(chunk_size)
     _validate_overlap(overlap, chunk_size)
 
