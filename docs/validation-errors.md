@@ -80,7 +80,7 @@ run_pipeline(data, [PipelineStep("step-1", broken_transform)])
 
 ## ConfigurationError
 
-`ConfigurationError` is reserved for invalid library configuration, missing environment variables, or malformed provider configurations. It is distinguished from `ValidationError` because it represents environment/setup defects rather than dynamic function argument defects.
+`ConfigurationError` is reserved for library configuration and environment/setup defects. It is distinguished from `ValidationError` because it represents configuration defects rather than dynamic function argument defects. The provider-independent utilities implemented so far do not define provider-specific configuration contracts.
 
 ---
 
